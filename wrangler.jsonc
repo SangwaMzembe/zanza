@@ -16,7 +16,7 @@
 	"containers": [
 		{
 			"class_name": "MyContainer",
-			"image": "./Dockerfile",
+			"image": "ghcr.io/sangwamzembe/zanza:main-ce7e38b",
 			"max_instances": 10
 		}
 	],
