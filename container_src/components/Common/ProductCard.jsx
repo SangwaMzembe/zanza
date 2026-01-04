@@ -39,7 +39,7 @@ const ProductCard = ({ item, handleLike }) => {
 
   // Extract automotive-specific custom fields with memoization
   const automotiveFields = useMemo(() => {
-    const automotiveFieldNames = ['year', 'mileage', 'transmission', 'fuel type', 'fuel_type', 'engine', 'engine size'];
+    const automotiveFieldNames = ['year', 'mileage', 'transmission', 'fuel', 'engine'];
     return item?.item_custom_field_values?.filter(field => {
       const fieldName = field.custom_field?.name?.toLowerCase()?.trim();
       return fieldName && automotiveFieldNames.some(key => fieldName === key || fieldName.includes(key));
@@ -141,7 +141,7 @@ const ProductCard = ({ item, handleLike }) => {
 
         <div className="mt-auto flex items-center justify-between gap-2 text-xs sm:text-sm text-text-secondary">
           <p className="line-clamp-1 flex items-center gap-1">
-            <HiLocationMarker className="flex-shrink-0" size={14} aria-hidden="true" />
+            <HiLocationMarker className="flex-shrink-0" size={14} aria-label="Location" />
             <span>{item?.translated_address}</span>
           </p>
           <p className="whitespace-nowrap">
