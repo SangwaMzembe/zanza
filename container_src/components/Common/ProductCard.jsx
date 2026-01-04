@@ -6,6 +6,7 @@ import {
 } from "@/utils";
 import { BiBadgeCheck } from "react-icons/bi";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { HiLocationMarker } from "react-icons/hi";
 import { manageFavouriteApi } from "@/utils/api";
 import { useSelector } from "react-redux";
 import { userSignUpData } from "@/redux/reducer/authSlice";
@@ -35,11 +36,11 @@ const ProductCard = ({ item, handleLike }) => {
       ? `/my-listing/${item?.slug}`
       : `/ad-details/${item.slug}`;
 
-  // Extract automotive-specific custom fields
+  // Extract automotive-specific custom fields with more robust matching
+  const automotiveFieldNames = ['year', 'mileage', 'transmission', 'fuel type', 'fuel_type', 'engine', 'engine size'];
   const automotiveFields = item?.item_custom_field_values?.filter(field => {
-    const fieldName = field.custom_field?.name?.toLowerCase();
-    return ['year', 'mileage', 'transmission', 'fuel type', 'engine']
-      .some(key => fieldName?.includes(key));
+    const fieldName = field.custom_field?.name?.toLowerCase()?.trim();
+    return fieldName && automotiveFieldNames.some(key => fieldName === key || fieldName.includes(key));
   });
 
   const handleLikeItem = async (e) => {
@@ -137,7 +138,8 @@ const ProductCard = ({ item, handleLike }) => {
 
         <div className="mt-auto flex items-center justify-between gap-2 text-xs sm:text-sm text-text-secondary">
           <p className="line-clamp-1 flex items-center gap-1">
-            📍 {item?.translated_address}
+            <HiLocationMarker className="flex-shrink-0" size={14} aria-hidden="true" />
+            <span>{item?.translated_address}</span>
           </p>
           <p className="whitespace-nowrap">
             {formatDate(item?.created_at)}&lrm;

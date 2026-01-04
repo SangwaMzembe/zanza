@@ -24,6 +24,8 @@ export default function RootLayout({ children }) {
       className="scroll-smooth"
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxx"
           crossOrigin="anonymous" strategy="afterInteractive" /> */}
       </head>
