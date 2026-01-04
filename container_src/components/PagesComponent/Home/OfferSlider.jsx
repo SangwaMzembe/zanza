@@ -30,7 +30,7 @@ const OfferSlider = ({ Slider }) => {
   }, [api]);
 
   return (
-    <section className="py-6 bg-muted">
+    <section className="py-8 bg-surface">
       <div className="container">
         <Carousel
           key={isRTL ? "rtl" : "ltr"}
@@ -72,10 +72,10 @@ const OfferSlider = ({ Slider }) => {
                   >
                     <CustomImage
                       src={ele.image}
-                      alt="slider imag"
+                      alt="slider image"
                       width={983}
                       height={493}
-                      className="aspect-[983/493] w-full object-cover rounded-xl"
+                      className="aspect-[983/493] w-full object-cover rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
                       loading={isPriorityImage ? "eager" : "lazy"}
                       priority={isPriorityImage}
                     />
@@ -89,8 +89,8 @@ const OfferSlider = ({ Slider }) => {
             <>
               <button
                 onClick={() => api?.scrollTo(current - 1)}
-                className={`sm:block absolute z-10 top-1/2 -translate-y-1/2 ltr:left-2 rtl:right-2 bg-primary p-1 md:p-2 rounded-full ${
-                  !api?.canScrollPrev() ? "cursor-default" : ""
+                className={`sm:block absolute z-10 top-1/2 -translate-y-1/2 ltr:left-2 rtl:right-2 bg-primary hover:bg-primary-dark p-2 md:p-3 rounded-full transition-colors duration-200 shadow-lg ${
+                  !api?.canScrollPrev() ? "cursor-default opacity-50" : ""
                 }`}
                 disabled={!api?.canScrollPrev()}
               >
@@ -102,8 +102,8 @@ const OfferSlider = ({ Slider }) => {
               </button>
               <button
                 onClick={() => api?.scrollTo(current + 1)}
-                className={`sm:block absolute z-10 top-1/2 -translate-y-1/2 ltr:right-2 rtl:left-2 bg-primary p-1 md:p-2 rounded-full ${
-                  !api?.canScrollNext() ? "cursor-default" : ""
+                className={`sm:block absolute z-10 top-1/2 -translate-y-1/2 ltr:right-2 rtl:left-2 bg-primary hover:bg-primary-dark p-2 md:p-3 rounded-full transition-colors duration-200 shadow-lg ${
+                  !api?.canScrollNext() ? "cursor-default opacity-50" : ""
                 }`}
                 disabled={!api?.canScrollNext()}
               >

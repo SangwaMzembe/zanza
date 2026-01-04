@@ -214,7 +214,7 @@ const HomeHeader = () => {
 
   return (
     <>
-      <header className="py-5 border-b">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b py-4">
         <nav className="container">
           <div className="space-between">
             <CustomLink href="/">
@@ -278,7 +278,7 @@ const HomeHeader = () => {
               )}
 
               <button
-                className="bg-primary px-2 xl:px-4 py-2 items-center text-white rounded-md  flex gap-1"
+                className="bg-primary px-2 xl:px-4 py-2 items-center text-white rounded-xl flex gap-1 hover:bg-[#1e3a8a] transition-colors duration-200 font-semibold"
                 disabled={IsAdListingClicked}
                 onClick={handleAdListing}
                 title={t("adListing")}

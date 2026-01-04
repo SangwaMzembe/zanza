@@ -35,6 +35,13 @@ const ProductCard = ({ item, handleLike }) => {
       ? `/my-listing/${item?.slug}`
       : `/ad-details/${item.slug}`;
 
+  // Extract automotive-specific custom fields
+  const automotiveFields = item?.item_custom_field_values?.filter(field => {
+    const fieldName = field.custom_field?.name?.toLowerCase();
+    return ['year', 'mileage', 'transmission', 'fuel type', 'engine']
+      .some(key => fieldName?.includes(key));
+  });
+
   const handleLikeItem = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -61,47 +68,50 @@ const ProductCard = ({ item, handleLike }) => {
   return (
     <CustomLink
       href={productLink}
-      className="border p-2 rounded-2xl flex flex-col gap-2 h-full"
+      className="group relative overflow-hidden rounded-2xl border border-border hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 bg-white flex flex-col h-full"
     >
-      <div className="relative">
+      <div className="relative aspect-[16/10] overflow-hidden">
         <CustomImage
           src={item?.image}
-          width={288}
-          height={249}
-          className="w-full aspect-square rounded object-cover"
+          width={400}
+          height={250}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           alt="Product"
         />
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <span className="text-white font-semibold">View Details →</span>
+        </div>
         {item?.is_feature && (
-          <div className="flex items-center gap-1 ltr:rounded-tl rtl:rounded-tr py-0.5 px-1 bg-primary absolute top-0 ltr:left-0 rtl:right-0">
+          <div className="flex items-center gap-1 ltr:rounded-tl rtl:rounded-tr py-1 px-2 bg-primary absolute top-0 ltr:left-0 rtl:right-0">
             <BiBadgeCheck size={16} color="white" />
-            <p className="text-white text-xs sm:text-sm">{t("featured")}</p>
+            <p className="text-white text-xs sm:text-sm font-medium">{t("featured")}</p>
           </div>
         )}
 
         <div
           onClick={handleLikeItem}
-          className="absolute h-10 w-10 ltr:right-2 rtl:left-2 top-2 bg-white p-2 rounded-full flex items-center justify-center text-primary"
+          className="absolute h-10 w-10 ltr:right-2 rtl:left-2 top-2 bg-white p-2 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors duration-200"
         >
           {item?.is_liked ? (
             <button>
-              <FaHeart size={24} className="like_icon" />
+              <FaHeart size={20} className="like_icon" />
             </button>
           ) : (
             <button>
-              <FaRegHeart size={24} className="like_icon" />
+              <FaRegHeart size={20} className="like_icon" />
             </button>
           )}
         </div>
       </div>
 
-      <div className="space-between gap-2">
-        {isHidePrice ? (
-          <p className="text-sm sm:text-base font-medium line-clamp-1">
-            {translated_item?.name || item?.name}
-          </p>
-        ) : (
+      <div className="p-3 flex flex-col gap-2 flex-1">
+        <p className="text-sm sm:text-base font-semibold line-clamp-1">
+          {translated_item?.name || item?.name}
+        </p>
+
+        {!isHidePrice && (
           <p
-            className="text-sm sm:text-lg font-bold break-all text-balance line-clamp-2"
+            className="text-lg sm:text-xl font-bold text-primary break-all text-balance"
             title={
               isJobCategory
                 ? formatSalaryRange(item?.min_salary, item?.max_salary)
@@ -114,19 +124,26 @@ const ProductCard = ({ item, handleLike }) => {
           </p>
         )}
 
-        <p className="text-xs sm:text-sm opacity-65 whitespace-nowrap">
-          {formatDate(item?.created_at)}&lrm;
-        </p>
-      </div>
+        {automotiveFields && automotiveFields.length > 0 && (
+          <div className="flex flex-wrap gap-2 text-xs sm:text-sm text-text-secondary">
+            {automotiveFields.slice(0, 3).map((field, index) => (
+              <span key={field.id} className="flex items-center gap-1">
+                {field.value}
+                {index < Math.min(automotiveFields.length - 1, 2) && <span>•</span>}
+              </span>
+            ))}
+          </div>
+        )}
 
-      {!isHidePrice && (
-        <p className="text-sm sm:text-base font-medium line-clamp-1">
-          {translated_item?.name || item?.name}
-        </p>
-      )}
-      <p className="text-xs sm:text-sm opacity-65 line-clamp-1">
-        {item?.translated_address}
-      </p>
+        <div className="mt-auto flex items-center justify-between gap-2 text-xs sm:text-sm text-text-secondary">
+          <p className="line-clamp-1 flex items-center gap-1">
+            📍 {item?.translated_address}
+          </p>
+          <p className="whitespace-nowrap">
+            {formatDate(item?.created_at)}&lrm;
+          </p>
+        </div>
+      </div>
     </CustomLink>
   );
 };

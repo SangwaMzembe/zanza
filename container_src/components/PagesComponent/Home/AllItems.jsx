@@ -114,8 +114,8 @@ const AllItems = ({ cityData, KmRange }) => {
   };
 
   return (
-    <section className="container mt-12">
-      <h5 className="text-xl sm:text-2xl font-medium">{t("allItems")}</h5>
+    <section className="container mt-12 mb-12">
+      <h2 className="text-2xl sm:text-3xl font-bold">{t("allItems")}</h2>
 
       {/* Location Alert - shows when items are from different location */}
       {locationAlertMessage && AllItem.length > 0 && (
@@ -126,7 +126,7 @@ const AllItems = ({ cityData, KmRange }) => {
         </Alert>
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 mt-6">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6">
         {isLoading ? (
           <AllItemsSkeleton />
         ) : AllItem && AllItem.length > 0 ? (
@@ -145,10 +145,10 @@ const AllItems = ({ cityData, KmRange }) => {
       </div>
 
       {AllItem && AllItem.length > 0 && hasMore && (
-        <div className="text-center mt-6">
+        <div className="text-center mt-8">
           <Button
             variant="outline"
-            className="text-sm sm:text-base text-primary w-[256px]"
+            className="text-sm sm:text-base text-primary hover:bg-primary hover:text-white w-[256px] h-12 rounded-xl font-semibold transition-all duration-200"
             disabled={isLoading || isLoadMore}
             onClick={handleLoadMore}
           >

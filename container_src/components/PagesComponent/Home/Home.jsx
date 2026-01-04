@@ -9,6 +9,7 @@ import { getCityData, getKilometerRange } from "@/redux/reducer/locationSlice";
 import OfferSliderSkeleton from "@/components/PagesComponent/Home/OfferSliderSkeleton";
 import FeaturedSectionsSkeleton from "./FeaturedSectionsSkeleton";
 import PopularCategories from "./PopularCategories";
+import HeroSearch from "./HeroSearch";
 import dynamic from "next/dynamic";
 
 const OfferSlider = dynamic(() => import("./OfferSlider"), {
@@ -74,6 +75,7 @@ const Home = () => {
   }, [cityData.lat, cityData.long, KmRange, currentLanguageCode]);
   return (
     <>
+      <HeroSearch />
       {IsSliderLoading ? (
         <OfferSliderSkeleton />
       ) : (

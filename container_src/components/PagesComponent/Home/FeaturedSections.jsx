@@ -28,21 +28,21 @@ const FeaturedSections = ({ featuredData, setFeaturedData, allEmpty }) => {
             ele?.section_data.length > 0 && (
               <Fragment key={ele?.id}>
                 <div className="space-between gap-2 mt-12">
-                  <h5 className="text-xl sm:text-2xl font-medium">
+                  <h2 className="text-2xl sm:text-3xl font-bold">
                     {ele?.translated_name || ele?.title}
-                  </h5>
+                  </h2>
 
                   {ele?.section_data.length > 4 && (
                     <CustomLink
                       href={`/ads?featured_section=${ele?.slug}`}
-                      className="text-sm sm:text-base font-medium whitespace-nowrap"
+                      className="btn-primary text-sm sm:text-base"
                       prefetch={false}
                     >
                       {t("viewAll")}
                     </CustomLink>
                   )}
                 </div>
-                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 mt-6">
+                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6">
                   {ele?.section_data.slice(0, 4).map((data) => (
                     <ProductCard
                       key={data?.id}

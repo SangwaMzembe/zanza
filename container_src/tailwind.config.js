@@ -13,6 +13,9 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -32,10 +35,12 @@ module.exports = {
         },
         primary: {
           DEFAULT: "var(--primary)",
+          dark: "#1e3a8a",
+          light: "#3b82f6",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "var(--secondary)",
           foreground: "hsl(var(--secondary-foreground))",
         },
         muted: {
@@ -43,13 +48,17 @@ module.exports = {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
+          DEFAULT: "var(--accent)",
           foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
           DEFAULT: "var(--destructive)",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        success: "var(--success)",
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
+        surface: "var(--surface)",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         chart: {
