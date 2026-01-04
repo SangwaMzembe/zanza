@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 # Build stage for Next.js app
-FROM node:22-alpine AS builder
+FROM --platform=linux/amd64 node:22-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -14,10 +14,13 @@ RUN npm ci --loglevel verbose
 COPY container_src/ .
 
 # Build the Next.js application
-RUN npm run build
+RUN npm run build && rm -rf .next/cache
+
+# Remove dev dependencies before shipping runtime layers
+RUN npm prune --omit=dev && npm cache clean --force
 
 # Production stage - minimal image for Cloudflare Containers
-FROM node:22-alpine
+FROM --platform=linux/amd64 node:22-alpine
 
 WORKDIR /usr/src/app
 
@@ -38,4 +41,4 @@ HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
   CMD node -e "require('http').get('http://localhost:8080/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
 
 # Start the application
-CMD ["npm", "start"]
+ENTRYPOINT ["node", "/usr/src/app/server.js"]
