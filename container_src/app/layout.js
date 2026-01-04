@@ -1,14 +1,7 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/store/providers";
 import { Toaster } from "@/components/ui/sonner";
 // import Script from "next/script";
-
-const inter = Inter({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const generateMetadata = () => {
   return {
@@ -34,7 +27,7 @@ export default function RootLayout({ children }) {
         {/* <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxx"
           crossOrigin="anonymous" strategy="afterInteractive" /> */}
       </head>
-      <body className={`${inter.className} !pointer-events-auto antialiased`}>
+      <body className={`font-sans !pointer-events-auto antialiased`}>
         <Providers>
           {children}
           <Toaster position="top-center" />
