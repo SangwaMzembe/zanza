@@ -14,6 +14,7 @@ import CustomLink from "@/components/Common/CustomLink";
 import { toast } from "sonner";
 import { setIsLoginOpen } from "@/redux/reducer/globalStateSlice";
 import CustomImage from "./CustomImage";
+import { useMemo } from "react";
 
 const ProductCard = ({ item, handleLike }) => {
   const userData = useSelector(userSignUpData);
@@ -36,12 +37,14 @@ const ProductCard = ({ item, handleLike }) => {
       ? `/my-listing/${item?.slug}`
       : `/ad-details/${item.slug}`;
 
-  // Extract automotive-specific custom fields with more robust matching
-  const automotiveFieldNames = ['year', 'mileage', 'transmission', 'fuel type', 'fuel_type', 'engine', 'engine size'];
-  const automotiveFields = item?.item_custom_field_values?.filter(field => {
-    const fieldName = field.custom_field?.name?.toLowerCase()?.trim();
-    return fieldName && automotiveFieldNames.some(key => fieldName === key || fieldName.includes(key));
-  });
+  // Extract automotive-specific custom fields with memoization
+  const automotiveFields = useMemo(() => {
+    const automotiveFieldNames = ['year', 'mileage', 'transmission', 'fuel type', 'fuel_type', 'engine', 'engine size'];
+    return item?.item_custom_field_values?.filter(field => {
+      const fieldName = field.custom_field?.name?.toLowerCase()?.trim();
+      return fieldName && automotiveFieldNames.some(key => fieldName === key || fieldName.includes(key));
+    });
+  }, [item?.item_custom_field_values]);
 
   const handleLikeItem = async (e) => {
     e.preventDefault();

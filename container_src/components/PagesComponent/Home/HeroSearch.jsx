@@ -7,10 +7,10 @@ const HeroSearch = () => {
       <div className="container">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            {t("findYourDreamCar") || "Find Your Dream Car"}
+            {t("searchAd")}
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-slate-200">
-            {t("browseTrustedListings") || "Browse thousands of verified listings"}
+            {t("connectVastAudience")}
           </p>
         </div>
       </div>
